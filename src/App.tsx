@@ -1,6 +1,6 @@
 import { Capabilities } from './components/Capabilities'
 import { Closing, Footer } from './components/Closing'
-import { DemoProvider, useDemo } from './components/DemoContext'
+import { DemoProvider } from './components/DemoContext'
 import { DesktopCompanion } from './components/DesktopCompanion'
 import { DemoWorkspace } from './components/demo/DemoWorkspace'
 import { Hero } from './components/Hero'
@@ -12,7 +12,6 @@ import { Scorecard, Trust } from './components/Trust'
 import { Workday } from './components/Workday'
 
 function Page() {
-  const { resetNonce } = useDemo()
   return (
     <>
       <Nav />
@@ -23,7 +22,7 @@ function Page() {
         <Capabilities />
         <DemoWorkspace />
         <Workday />
-        <DesktopCompanion key={resetNonce} />
+        <DesktopCompanion />
         <Roadmap />
         <Trust />
         <Scorecard />

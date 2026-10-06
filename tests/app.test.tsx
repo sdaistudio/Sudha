@@ -1,8 +1,7 @@
-import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import App from '../src/App'
-import { DURATIONS } from '../src/components/DesktopCompanion'
 
 const demo = () => document.getElementById('demo')!
 const panel = (id: string) => document.getElementById(`demo-panel-${id}`)!
@@ -151,59 +150,13 @@ describe('roadmap', () => {
   })
 })
 
-describe('desktop companion', () => {
-  const stage = () => within(document.getElementById('companion')!)
-  // One phase per call: React flushes the phase-transition effect when each act() completes.
-  const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms))
-
-  it('enters, asks, and dismisses quietly with no response', () => {
-    vi.useFakeTimers()
+describe('desktop companion concept', () => {
+  it('shows the concept film with a pause control and a disabled download', () => {
     render(<App />)
-    fireEvent.click(stage().getByRole('button', { name: /Try a water reminder/ }))
-    advance(DURATIONS.entering + 200)
-    expect(stage().getByText('Have you had your water?')).toBeInTheDocument()
-    advance(DURATIONS.asking + 200)
-    expect(stage().queryByText('Have you had your water?')).toBeNull()
-    advance(DURATIONS.dismissing + 200)
-    expect(stage().getByRole('button', { name: /Try a water reminder/ })).toBeEnabled()
-    vi.useRealTimers()
-  })
-
-  it('responds to Yes and Not yet', () => {
-    vi.useFakeTimers()
-    render(<App />)
-    fireEvent.click(stage().getByRole('button', { name: /Try a water reminder/ }))
-    advance(DURATIONS.entering + 200)
-    fireEvent.click(stage().getByRole('button', { name: 'Yes' }))
-    expect(stage().getByText('Wonderful! Keep yourself refreshed.')).toBeInTheDocument()
-    advance(DURATIONS.happy + 200)
-    advance(DURATIONS.leaving + 200)
-    fireEvent.click(stage().getByRole('button', { name: /Try a water reminder/ }))
-    advance(DURATIONS.entering + 200)
-    fireEvent.click(stage().getByRole('button', { name: 'Not yet' }))
-    expect(stage().getByText('A little water break?')).toBeInTheDocument()
-    vi.useRealTimers()
-  })
-
-  it('snoozes on Later, pauses, and resets', () => {
-    vi.useFakeTimers()
-    render(<App />)
-    fireEvent.click(stage().getByRole('button', { name: /Try a water reminder/ }))
-    advance(DURATIONS.entering + 200)
-    fireEvent.click(stage().getByRole('button', { name: 'Remind me later' }))
-    advance(DURATIONS.leaving + 200)
-    expect(stage().getByText('Snoozed')).toBeInTheDocument()
-    expect(stage().getByText(/accelerated demo timer/)).toBeInTheDocument()
-    fireEvent.click(stage().getByRole('button', { name: /Pause/ }))
-    advance(DURATIONS.snoozed + 1000)
-    expect(stage().getByText('Snoozed')).toBeInTheDocument() // paused: still snoozed
-    fireEvent.click(stage().getByRole('button', { name: /Resume/ }))
-    advance(DURATIONS.snoozed + 200)
-    advance(DURATIONS.entering + 200)
-    expect(stage().getByText('Have you had your water?')).toBeInTheDocument()
-    fireEvent.click(stage().getByRole('button', { name: /^Reset$/ }))
-    expect(stage().queryByText('Have you had your water?')).toBeNull()
-    expect(stage().getByRole('button', { name: /Download desktop app/ })).toBeDisabled()
-    vi.useRealTimers()
+    const c = within(document.getElementById('companion')!)
+    expect(c.getByLabelText(/Sudha walks onto a desktop/)).toBeInTheDocument()
+    expect(c.getByRole('button', { name: /concept film/ })).toBeInTheDocument()
+    expect(c.getByRole('button', { name: /Download desktop app/ })).toBeDisabled()
+    expect(c.queryByText('Try it yourself')).toBeNull()
   })
 })

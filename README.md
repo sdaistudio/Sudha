@@ -61,7 +61,7 @@ public/assets/           sudha/ (portrait, avatar) · companion/ (cut-out poses)
 |---|---|---|---|
 | Hero portrait | `public/assets/sudha/sudha-portrait-upper.webp` (+ `.jpg`) | Upper-body crop of the supplied portrait, **original studio backdrop kept**. A cut-out left a grey halo in the hair. | Approved transparent or backdrop portrait, ≥1600 px tall, same framing |
 | Chat avatar | `public/assets/sudha/sudha-avatar.webp` | 160 px face crop of the portrait | Approved square avatar |
-| Companion poses | `public/assets/companion/{front,leftprofile,rightprofile,back,left34,right34,happy}.png` | Cut out from the six-angle sheet with OpenCV GrabCut. Small, so edges are acceptable; `happy.png` (from the hero portrait) has a faint halo. | Transparent walk-cycle frames and expression sprites (happy, gentle/disappointed, idle). Keep names, or update `POSES` in `DesktopCompanion.tsx`. |
+| Closing figure | `public/assets/companion/front.png` | Cut out from the six-angle sheet with OpenCV GrabCut | Approved transparent full-body pose |
 | Companion concept film | `public/assets/video/sudha-desktop-companion-720p.mp4` + poster | From the `sudha-desktop-companion` project (27 s, silent loop) | Newer render with the same file names |
 | Intro video | `public/assets/video/sudha-intro.mp4` + poster | Supplied clip (10 s, carries a generator watermark) | Approved final clip with captions |
 
@@ -83,7 +83,7 @@ public/assets/           sudha/ (portrait, avatar) · companion/ (cut-out poses)
   - **Review companion:** Before / During / After, with drill-down and action capture with status.
   - **Employee assistant:** labelled sample content.
 - Workday timeline with the refresh model.
-- Desktop-companion concept: enter, ask, Yes / Not yet / Later, accelerated snooze, quiet timeout, pause, sound toggle (off by default), reset and a disabled download button.
+- Desktop-companion concept: a looping concept film (muted, pause control, pauses offscreen, no autoplay under reduced motion) and a disabled download button. The earlier interactive simulated-desktop stage was removed at the stakeholder's request.
 - Roadmap explorer with the pacing toggle, track grid, rollout and future scope.
 - Trust principles and intended production environment.
 - Intended measures of success.
@@ -93,12 +93,11 @@ public/assets/           sudha/ (portrait, avatar) · companion/ (cut-out poses)
 
 **Verified:**
 - `npm run build` passes (typecheck + build).
-- `npm test` passes: **34 tests**. They cover pace and gap arithmetic, the colour thresholds (including 92% branch visit showing green against an 80% target), cross-level fixture reconciliation, role scoping, Ask Sudha intents and fallbacks, every in-page CTA target, the mobile menu and Escape key, the end-to-end coverage flow, role-switch reset, presence slots, review actions, the roadmap toggle, and the companion timeout, snooze, pause and reset.
+- `npm test` passes: **32 tests**. They cover pace and gap arithmetic, the colour thresholds (including 92% branch visit showing green against an 80% target), cross-level fixture reconciliation, role scoping, Ask Sudha intents and fallbacks, every in-page CTA target, the mobile menu and Escape key, the end-to-end coverage flow, role-switch reset, presence slots, review actions, the roadmap toggle, and the companion concept film and disabled download.
 - Manual browser check in Chrome at desktop width and at 390 px. A phantom horizontal scroll at phone width was found and fixed.
 
 **Not verified / limitations:**
 - No automated accessibility audit (axe/Lighthouse) or screen-reader pass was run.
 - No Safari or Firefox testing.
 - Reduced-motion was checked by code path (CSS media query, Reveal and companion), not on a device.
-- In the browser checks, Chrome throttled timers because the window was in the background, so companion timing was verified by tests rather than by eye.
 - Google Fonts may be blocked on a corporate network; system fallbacks apply.
