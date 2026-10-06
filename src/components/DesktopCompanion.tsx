@@ -2,6 +2,7 @@ import { Droplet, Download, Pause, Play, RotateCcw, Sparkles, Volume2, VolumeX }
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { asset } from '../content/site'
 import { useInView, useReducedMotion } from '../hooks/useMotion'
+import { CompanionFilm } from './CompanionFilm'
 import { SectionHeader } from './ui/Bits'
 
 /**
@@ -129,10 +130,13 @@ export function DesktopCompanion() {
           <span className="chip bg-ivory-deep text-muted">Separate extension · not one of the eight roadmap tracks</span>
         </div>
         <div className="mt-6">
-          <SectionHeader id="companion-title" eyebrow="A small kindness" title="A little support, right when you need it." intro="A concept for a gentle desktop companion. Try a water reminder below — everything happens inside this simulated desktop." />
+          <SectionHeader id="companion-title" eyebrow="A small kindness" title="A little support, right when you need it." intro="A concept for a gentle desktop companion. Watch the concept film, then try a water reminder yourself — everything happens inside the simulated desktop." />
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-2">
+        <CompanionFilm />
+        <h3 className="display mt-14 text-2xl text-navy sm:text-3xl">Try it yourself</h3>
+
+        <div className="mt-5 flex flex-wrap items-center gap-2">
           <button type="button" className="btn btn-primary" onClick={start} disabled={!out}>
             <Droplet size={16} aria-hidden /> Try a water reminder
           </button>

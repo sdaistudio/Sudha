@@ -62,6 +62,7 @@ public/assets/           sudha/ (portrait, avatar) · companion/ (cut-out poses)
 | Hero portrait | `public/assets/sudha/sudha-portrait-upper.webp` (+ `.jpg`) | Upper-body crop of the supplied portrait, **original studio backdrop kept**. A cut-out left a grey halo in the hair. | Approved transparent or backdrop portrait, ≥1600 px tall, same framing |
 | Chat avatar | `public/assets/sudha/sudha-avatar.webp` | 160 px face crop of the portrait | Approved square avatar |
 | Companion poses | `public/assets/companion/{front,leftprofile,rightprofile,back,left34,right34,happy}.png` | Cut out from the six-angle sheet with OpenCV GrabCut. Small, so edges are acceptable; `happy.png` (from the hero portrait) has a faint halo. | Transparent walk-cycle frames and expression sprites (happy, gentle/disappointed, idle). Keep names, or update `POSES` in `DesktopCompanion.tsx`. |
+| Companion concept film | `public/assets/video/sudha-desktop-companion-720p.mp4` + poster | From the `sudha-desktop-companion` project (27 s, silent loop) | Newer render with the same file names |
 | Intro video | `public/assets/video/sudha-intro.mp4` + poster | Supplied clip (10 s, carries a generator watermark) | Approved final clip with captions |
 
 **Turntable:** an earlier stepped six-angle "turntable" section was **removed at the stakeholder's request**. The six-angle sheet cannot support true 360° rotation. If a dense, coherent frame sequence or a 3D model becomes available, a scroll-scrubbed section can be reinstated.
