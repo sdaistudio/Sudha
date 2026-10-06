@@ -1,0 +1,276 @@
+@import 'tailwindcss' source('.');
+
+/*
+ * Sudha design tokens. Colours are provisional (see README) — replace with
+ * approved SUD Life brand values when supplied.
+ */
+@theme {
+  --color-ivory: #f7f3ec;
+  --color-ivory-deep: #efe8dc;
+  --color-paper: #fffdf9;
+  --color-navy: #0f1b3d;
+  --color-navy-soft: #24305a;
+  --color-ink: #1b2340;
+  --color-muted: #5a6078;
+  --color-line: #ddd5c6;
+  --color-line-dark: #2f3b66;
+  --color-indigo: #3f45a8;
+  --color-indigo-soft: #e7e7f6;
+  --color-teal: #17807a;
+  --color-teal-soft: #dcefec;
+  --color-good: #2c7a4b;
+  --color-good-soft: #e1f0e6;
+  --color-warn: #a2650c;
+  --color-warn-soft: #f8ead2;
+  --color-bad: #b23a3a;
+  --color-bad-soft: #f7e0de;
+  --color-stage: #dfe2ea;
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-indigo);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-indigo);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #b9bcf5;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-x {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-x {
+      padding-inline: 3rem;
+    }
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+  }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition:
+      background-color 0.2s var(--ease-calm),
+      color 0.2s var(--ease-calm),
+      border-color 0.2s var(--ease-calm),
+      transform 0.2s var(--ease-calm);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    background: var(--color-navy);
+    color: var(--color-ivory);
+  }
+  .btn-primary:hover {
+    background: var(--color-indigo);
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-line);
+    color: var(--color-navy);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-navy);
+  }
+  .btn-light {
+    background: var(--color-ivory);
+    color: var(--color-navy);
+  }
+  .btn-light:hover {
+    background: white;
+  }
+  .btn-ghost-light {
+    border: 1px solid rgba(247, 243, 236, 0.35);
+    color: var(--color-ivory);
+  }
+  .btn-ghost-light:hover {
+    border-color: var(--color-ivory);
+  }
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .panel {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+  }
+  .rule {
+    border-top: 1px solid var(--color-line);
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Reveal-on-scroll. Elements are visible by default; JS opts them in. */
+.reveal-ready {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s var(--ease-calm),
+    transform 0.8s var(--ease-calm);
+}
+.reveal-ready.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Gentle idle movement for static companion poses. */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@keyframes walk-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-0.6deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(0.6deg);
+  }
+}
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-breathe {
+  animation: breathe 3.2s ease-in-out infinite;
+}
+.animate-walk {
+  animation: walk-bob 0.55s ease-in-out infinite;
+}
+.animate-float-up {
+  animation: float-up 0.45s var(--ease-calm) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s var(--ease-calm) both;
+}
+.paused,
+.paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-ready {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Keep visually-hidden table labels inside their scroll containers (prevents phantom horizontal page scroll). */
+.overflow-x-auto {
+  position: relative;
+}
