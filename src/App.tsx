@@ -8,6 +8,7 @@ import { Horizons } from './components/Horizons'
 import { Meet } from './components/Meet'
 import { Nav } from './components/Nav'
 import { Roadmap } from './components/Roadmap'
+import { TalkToSudha } from './components/TalkToSudha'
 import { Scorecard, Trust } from './components/Trust'
 import { Workday } from './components/Workday'
 
@@ -21,6 +22,7 @@ function Page() {
         <Horizons />
         <Capabilities />
         <DemoWorkspace />
+        <TalkToSudha />
         <Workday />
         <DesktopCompanion />
         <Roadmap />

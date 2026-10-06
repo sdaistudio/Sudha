@@ -20,6 +20,36 @@ Hosting is configurable: `dist/` is a static site. To host under a sub-path, bui
 
 > **iCloud note.** This folder lives in iCloud Drive. Dependencies are installed into `node_modules.nosync` (with a `node_modules` symlink) so iCloud does not sync them. The Vite watcher and Tailwind scanner both ignore that folder and `dist/`. If `npm install` replaces the symlink with a real folder, run: `rm -rf node_modules.nosync && mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules`.
 
+## Live chat — "Talk to Sudha" (OpenAI, via Vercel)
+
+The **Talk to Sudha** section is a live conversation with an OpenAI model. The browser never sees the API key: the page calls `/api/chat`, a Vercel Function (`api/chat.ts` → `server/chat.ts`). That function adds the key server-side, grounds the model and streams the answer back.
+
+**Grounding and guardrails (`src/data/context.ts`).**
+- The model receives the selected role's **synthetic** KPIs, coverage, presence, review and recognition data, plus the roadmap summary.
+- Role scoping is applied on the server: no SO names above TM level.
+- The system prompt keeps Sudha to business topics and forbids invented figures or statements of real SUD Life policy, product or HR terms.
+- She will not claim to send, book or update anything, and ignores attempts to override these rules.
+
+**Abuse and cost controls (`server/chat.ts`).**
+- 1,200-character messages, the last 12 turns only, and replies capped at 700 output tokens.
+- Best-effort rate limit of 30 requests per 10 minutes per IP per instance.
+- An origin allowlist, and `store: false`.
+- **Also set a monthly spend limit on the OpenAI project** — the in-memory rate limit is not shared across serverless instances.
+
+**Deploy on Vercel (one-time):**
+1. Sign in at vercel.com with GitHub → **Add New → Project** → import `sdaistudio/Sudha`. Vercel detects Vite; keep the defaults (build `npm run build`, output `dist`).
+2. **Settings → Environment Variables**:
+   - `OPENAI_API_KEY` = your key (Production + Preview). Enter it only in Vercel — never in code or chat.
+   - `OPENAI_MODEL` (optional) — defaults to `gpt-6.1-sol`. Set any model your account can use.
+   - `ALLOWED_ORIGINS` (optional) = `https://sdaistudio.github.io` if the GitHub Pages copy should also chat.
+3. Deploy. Live chat works at `https://<project>.vercel.app/#chat`.
+
+**Optional — enable chat on the GitHub Pages copy too:** in GitHub → repo **Settings → Secrets and variables → Actions → Variables**, add `CHAT_API_URL` = `https://<project>.vercel.app/api/chat`, then re-run the Pages workflow. Without it, the Pages copy shows a polite "not connected on this copy" notice.
+
+**Local development:** copy `.env.example` to `.env.local`, add your key, and run `npm run dev`. The dev server serves `/api/chat` itself. `.env.local` is git-ignored.
+
+The scripted **Ask Sudha** tab inside the demo is unchanged and needs no API.
+
 ## Stack
 
 React 19 · TypeScript · Vite 8 · Tailwind CSS 4 · lucide-react. Motion is CSS transitions plus small hooks; GSAP and Lenis were not needed, and native scrolling is preserved. Fonts are Fraunces and Inter from Google Fonts, with system fallbacks.
@@ -93,7 +123,7 @@ public/assets/           sudha/ (portrait, avatar) · companion/ (cut-out poses)
 
 **Verified:**
 - `npm run build` passes (typecheck + build).
-- `npm test` passes: **32 tests**. They cover pace and gap arithmetic, the colour thresholds (including 92% branch visit showing green against an 80% target), cross-level fixture reconciliation, role scoping, Ask Sudha intents and fallbacks, every in-page CTA target, the mobile menu and Escape key, the end-to-end coverage flow, role-switch reset, presence slots, review actions, the roadmap toggle, and the companion concept film and disabled download.
+- `npm test` passes: **41 tests**. They cover pace and gap arithmetic, the colour thresholds (including 92% branch visit showing green against an 80% target), cross-level fixture reconciliation, role scoping, Ask Sudha intents and fallbacks, every in-page CTA target, the mobile menu and Escape key, the end-to-end coverage flow, role-switch reset, presence slots, review actions, the roadmap toggle, and the companion concept film and disabled download.
 - Manual browser check in Chrome at desktop width and at 390 px. A phantom horizontal scroll at phone width was found and fixed.
 
 **Not verified / limitations:**

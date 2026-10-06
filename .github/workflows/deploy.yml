@@ -30,6 +30,8 @@ jobs:
         env:
           # Served at https://<owner>.github.io/<repo>/
           SUDHA_BASE: /${{ github.event.repository.name }}/
+          # Set repo variable CHAT_API_URL to the Vercel endpoint (https://<project>.vercel.app/api/chat) to enable live chat here.
+          VITE_CHAT_API_URL: ${{ vars.CHAT_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

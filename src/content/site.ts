@@ -11,6 +11,7 @@ export const NAV = [
   { id: 'meet', label: 'Meet Sudha' },
   { id: 'capabilities', label: 'What I Do' },
   { id: 'demo', label: 'Try Sudha' },
+  { id: 'chat', label: 'Talk to Sudha' },
   { id: 'workday', label: 'Your Workday' },
   { id: 'roadmap', label: 'Roadmap' },
   { id: 'trust', label: 'Trust' },
