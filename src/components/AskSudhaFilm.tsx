@@ -1,68 +1,25 @@
 import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { asset } from '../content/site'
 import { useReducedMotion } from '../hooks/useMotion'
+import { useSoundAutoplay } from '../hooks/useSoundAutoplay'
 
 /**
- * Sudha inviting questions. Loops silently while on screen (never autoplays under reduced
- * motion); "Hear Sudha" restarts it with sound and stops looping, so she speaks once.
+ * Sudha inviting questions. Plays with sound from the start each time it scrolls into view
+ * (muted until the visitor's first click or tap, as browsers require), then keeps looping
+ * silently. Never autoplays under reduced motion.
  */
 export function AskSudhaFilm() {
   const ref = useRef<HTMLVideoElement>(null)
   const reduced = useReducedMotion()
-  const [playing, setPlaying] = useState(false)
-  const [muted, setMuted] = useState(true)
-  const userPaused = useRef(false)
+  const { muted, playing, toggleSound, togglePlay } = useSoundAutoplay(ref, { enabled: !reduced, restartOnEnter: true })
 
-  useEffect(() => {
-    const v = ref.current
-    if (!v || reduced) return
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !userPaused.current) void Promise.resolve(v.play()).catch(() => {})
-      else if (!e.isIntersecting) v.pause()
-    })
-    io.observe(v)
-    return () => io.disconnect()
-  }, [reduced])
-
-  const play = (v: HTMLVideoElement) => {
-    userPaused.current = false
-    void Promise.resolve(v.play()).catch(() => {})
-  }
-
-  const toggleSound = () => {
-    const v = ref.current
-    if (!v) return
-    if (muted) {
-      v.muted = false
-      v.loop = false
-      v.currentTime = 0
-      play(v)
-    } else {
-      v.muted = true
-      v.loop = true
-    }
-    setMuted(!muted)
-  }
-
-  const togglePlay = () => {
-    const v = ref.current
-    if (!v) return
-    if (v.paused) play(v)
-    else {
-      userPaused.current = true
-      v.pause()
-    }
-  }
-
-  // After speaking once with sound, settle back into the silent loop.
+  // After she has spoken (or a silent pass ends), carry on as a quiet loop.
   const onEnded = () => {
     const v = ref.current
-    if (!v) return
+    if (!v || reduced) return
     v.muted = true
-    v.loop = true
-    setMuted(true)
-    if (!reduced) play(v)
+    void Promise.resolve(v.play()).catch(() => {})
   }
 
   return (
@@ -71,20 +28,16 @@ export function AskSudhaFilm() {
         ref={ref}
         src={asset('assets/video/sudha-ask-me.mp4')}
         poster={asset('assets/video/sudha-ask-me-poster.jpg')}
-        autoPlay={!reduced}
         muted
-        loop
         playsInline
-        preload="metadata"
+        preload="auto"
         width={1280}
         height={720}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
         onEnded={onEnded}
         className="block aspect-video h-auto w-full"
         aria-label="Sudha speaks to camera, inviting you to ask her about your business"
       />
-      <div className="absolute bottom-3 right-3 flex gap-2">
+      <div data-sound-control className="absolute bottom-3 right-3 flex gap-2">
         <button type="button" onClick={togglePlay} className="btn btn-light btn-sm shadow-lg" aria-label={playing ? 'Pause video' : 'Play video'}>
           {playing ? <Pause size={14} aria-hidden /> : <Play size={14} aria-hidden />}
         </button>
@@ -92,7 +45,7 @@ export function AskSudhaFilm() {
           {muted ? <Volume2 size={14} aria-hidden /> : <VolumeX size={14} aria-hidden />} {muted ? 'Hear Sudha' : 'Mute'}
         </button>
       </div>
-      <figcaption className="sr-only">Short video of Sudha introducing the Ask Sudha conversation. Plays silently; use “Hear Sudha” for sound.</figcaption>
+      <figcaption className="sr-only">Short video of Sudha introducing the Ask Sudha conversation, with sound.</figcaption>
     </figure>
   )
 }

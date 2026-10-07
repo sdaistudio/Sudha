@@ -1,57 +1,17 @@
 import { Volume2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { asset } from '../content/site'
+import { useSoundAutoplay } from '../hooks/useSoundAutoplay'
 
 /**
  * Meet Sudha — the introduction video, placed directly below the hero.
  * Autoplays with sound when scrolled into view. Browsers block unmuted autoplay
- * until the visitor has interacted with the page; in that case it falls back to
- * muted playback and offers an "Unmute" button.
+ * until the visitor has interacted with the page; until then it plays muted and the
+ * first click or tap anywhere turns the sound on (or use the "Unmute" button).
  */
 export function Meet() {
   const ref = useRef<HTMLVideoElement>(null)
-  const [blockedSound, setBlockedSound] = useState(false)
-
-  useEffect(() => {
-    const v = ref.current
-    if (!v) return
-    const play = (muted: boolean) => {
-      v.muted = muted
-      try {
-        return Promise.resolve(v.play())
-      } catch {
-        return Promise.reject(new Error('play unavailable'))
-      }
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          if (!v.paused || v.ended) return
-          play(false)
-            .then(() => setBlockedSound(false))
-            .catch(() =>
-              play(true)
-                .then(() => setBlockedSound(true))
-                .catch(() => setBlockedSound(true)),
-            )
-        } else if (!v.paused) {
-          v.pause()
-        }
-      },
-      { threshold: 0.5 },
-    )
-    io.observe(v)
-    return () => io.disconnect()
-  }, [])
-
-  const unmute = () => {
-    const v = ref.current
-    if (!v) return
-    v.muted = false
-    if (v.ended) v.currentTime = 0
-    void Promise.resolve(v.play()).catch(() => {})
-    setBlockedSound(false)
-  }
+  const { muted, playing, toggleSound } = useSoundAutoplay(ref)
 
   return (
     <section id="meet" aria-labelledby="meet-title" className="pt-20 pb-8 lg:pt-12">
@@ -74,12 +34,13 @@ export function Meet() {
               src={asset('assets/video/sudha-intro.mp4')}
               poster={asset('assets/video/sudha-intro-poster.jpg')}
               preload="auto"
+              muted
               playsInline
               controls
               aria-label="Concept animation: Sudha walks into an office and introduces herself"
             />
-            {blockedSound && (
-              <button type="button" onClick={unmute} className="btn btn-light btn-sm absolute left-4 top-4 shadow-lg">
+            {muted && playing && (
+              <button type="button" data-sound-control onClick={toggleSound} className="btn btn-light btn-sm absolute left-4 top-4 shadow-lg">
                 <Volume2 size={15} aria-hidden /> Unmute
               </button>
             )}
