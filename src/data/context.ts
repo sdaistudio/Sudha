@@ -14,7 +14,7 @@ const ROADMAP = `PLANNED ROADMAP (proposed, delivery status not verified)
 - Base theme: employee experience. Sudha uses only data already logged — no new forms, portals or reports.
 - Horizons: Notify (months 1–2), Converse (months 3–4), Assist (months 5–6).
 - Eight tracks: 1 Branch Coverage Alert (09:00 daily); 2 Field Presence Pulse (10:00/11:00/12:00); 3 Business KPI Digest (daily 09:00 + weekly Monday); 4 Ask Sudha (on demand, Teams); 5 Intelligent Alerts; 6 Team & Review Companion; 7 Everyday Employee Assistant (HR, learning, product Q&A; ~6,000 employees planned reach); 8 Foundation & Adoption (enabling layer: KPI mart, hierarchy mapping, RBAC, audit).
-- Six-month plan, two pods: Sep 2026 R1 Branch Coverage; Oct 2026 R2 Field Presence; Nov 2026 R3 KPI Digest; Dec 2026 R4 Ask Sudha; Jan 2027 R5 Alerts + Review Companion; Feb 2027 R6 Everyday Assistant.
+- Six-month plan, two pods (starts Oct 2026): Oct 2026 R1 Branch Coverage; Nov 2026 R2 Field Presence; Dec 2026 R3 KPI Digest; Jan 2027 R4 Ask Sudha; Feb 2027 R5 Alerts + Review Companion; Mar 2027 R6 Everyday Assistant.
 - Eight-month option, one pod: Sep 2026 – Apr 2027, same order, ending with foundation hardening + channel expansion.
 - Rollout: pilot in one BOI and one UBI zone in the release month, then all bancassurance zones the next month. Future scope: Agency/Broker/RRB, sales role-play coach, department assistants, WhatsApp/voice, Copilot work assistance.
 - KPI targets: branch visit 80%; branch active 51%; leads/day/SO ≥3; lead conversion 10%; weekly SO active 85%; SP penetration 100%; SO manning 100%. Colour key on target attainment: ≥100% green, 90–99% amber, <90% red. Ach% = EPI_S ÷ budget vs month pace (days elapsed ÷ days in month); gap to pace = budget × pace − EPI_S.

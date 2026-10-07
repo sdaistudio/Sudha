@@ -139,7 +139,7 @@ describe('roadmap', () => {
     render(<App />)
     const r = within(document.getElementById('roadmap')!)
     expect(r.getByText('Planned schedule from the supplied roadmap; delivery status not verified.')).toBeInTheDocument()
-    await user.click(r.getByRole('tab', { name: /Dec 2026/ }))
+    await user.click(r.getByRole('tab', { name: /Jan 2027/ }))
     expect(r.getByText(/Text-to-query with guardrails/)).toBeInTheDocument()
     await user.click(r.getByRole('tab', { name: /8 months · one pod/ }))
     expect(r.getByRole('tab', { name: /Apr 2027/ })).toBeInTheDocument()

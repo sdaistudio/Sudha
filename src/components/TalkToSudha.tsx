@@ -2,6 +2,7 @@ import { Info, RotateCcw, SendHorizontal, Square } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ROLES, roleById } from '../data/fixtures'
 import type { RoleId } from '../data/types'
+import { AskSudhaFilm } from './AskSudhaFilm'
 import { useDemo } from './DemoContext'
 import { SectionHeader, SudhaSays } from './ui/Bits'
 
@@ -13,7 +14,7 @@ const STARTERS: Record<RoleId, string[]> = {
   tm: ['Summarise my territory for today.', 'How should I coach Rohan on branch coverage?', 'Why is conversion below target and what can I do?'],
   rm: ['Which territories need my attention this week?', 'Draft an agenda for my weekly review.', 'How do I lift conversion without hurting activity?'],
   zh: ['Branch visit is high but conversion is low — why?', 'What should I raise in the zonal review?', 'Give me three priorities for the rest of the month.'],
-  lead: ['How is the channel tracking against pace?', 'Where are the biggest gaps to target?', 'What does the Sudha roadmap deliver by February 2027?'],
+  lead: ['How is the channel tracking against pace?', 'Where are the biggest gaps to target?', 'What does the Sudha roadmap deliver by March 2027?'],
 }
 
 type Msg = { role: 'user' | 'assistant'; content: string; error?: boolean }
@@ -95,16 +96,19 @@ export function TalkToSudha() {
   return (
     <section id="chat" aria-labelledby="chat-title" className="bg-paper py-24 sm:py-32">
       <div className="container-x">
-        <SectionHeader
-          id="chat-title"
-          eyebrow="Talk to Sudha"
-          title={
-            <>
-              Ask Sudha <span className="italic">anything</span> about your business.
-            </>
-          }
-          intro="A live conversation powered by an AI model. Sudha answers from your role’s synthetic demo data and the planned roadmap, and can discuss sales management, coaching and reviews."
-        />
+        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+          <SectionHeader
+            id="chat-title"
+            eyebrow="Talk to Sudha"
+            title={
+              <>
+                Ask Sudha <span className="italic">anything</span> about your business.
+              </>
+            }
+            intro="A live conversation powered by an AI model. Sudha answers from your role’s synthetic demo data and the planned roadmap, and can discuss sales management, coaching and reviews."
+          />
+          <AskSudhaFilm />
+        </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_18rem]">
           <div className="flex min-h-[34rem] flex-col overflow-hidden rounded-[1.75rem] border border-line bg-ivory/50">

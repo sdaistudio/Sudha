@@ -237,12 +237,12 @@ export interface RoadmapMonth {
 
 /** Option A — 6 months, two pods. Month-by-month slide of the roadmap deck. */
 export const ROADMAP_A: RoadmapMonth[] = [
-  { key: 'sep', month: 'Sep 2026', release: 'R1 · Branch Coverage Alert', ships: '09:00 branch-coverage card to TMs in the pilot zone; roll-up counts to RM / ZM.', built: 'SO–branch–hierarchy mapping, nightly activity feed, Teams bot, role-based access (Track 8).', inBuild: 'Field Presence Pulse', decision: 'Pilot zones, and sign-off on the “names only at TM level” rule.' },
-  { key: 'oct', month: 'Oct 2026', release: 'R2 · Field Presence Pulse', ships: '10:00 / 11:00 / 12:00 pulse to TMs; R1 to all zones with “mark reason” and “nudge SO”.', built: 'Intraday refresh, leave and holiday awareness, trend vs yesterday.', inBuild: 'KPI Digest (data mart for proposals, issuance, APE)', decision: 'KPI definitions and targets frozen with Sales MIS.' },
-  { key: 'nov', month: 'Nov 2026', release: 'R3 · Business KPI Digest', ships: 'The Activity Dashboard metric set at every level; daily card, weekly summary, top performers.', built: 'Governed KPI mart, hierarchy roll-ups, recognition logic.', inBuild: 'Ask Sudha v1 (fixed intents + drill-down buttons)', decision: 'Which MIS emails Sudha replaces.' },
-  { key: 'dec', month: 'Dec 2026', release: 'R4 · Ask Sudha', ships: 'Plain-language questions on any KPI for my span; drill-down from every card.', built: 'Text-to-query with guardrails, accuracy test set, audit log.', inBuild: 'Intelligent Alerts v1; Team Companion', decision: 'Alert catalogue and escalation rules.' },
-  { key: 'jan', month: 'Jan 2027', release: 'R5 · Intelligent Alerts + Review Companion', ships: 'Pending-requirement and activity-drop alerts; weekly review pack and live review mode for area / regional heads.', built: 'Baseline models per SO, recognition suggestions.', inBuild: 'Everyday Assistant (policy, HRMS, LMS, product repository)', decision: 'HR content owners and answer approval process.' },
-  { key: 'feb', month: 'Feb 2027', release: 'R6 · Everyday Employee Assistant', ships: 'HR and leave answers, learning nudges, product Q&A, unified morning brief — to every employee.', built: 'Adoption dashboard, BAU handover to BSG, guardrail review.', inBuild: 'Months 7–8 backlog', decision: 'Expansion to Agency / Broker / RRB and first department sub-agent.' },
+  { key: 'oct', month: 'Oct 2026', release: 'R1 · Branch Coverage Alert', ships: '09:00 branch-coverage card to TMs in the pilot zone; roll-up counts to RM / ZM.', built: 'SO–branch–hierarchy mapping, nightly activity feed, Teams bot, role-based access (Track 8).', inBuild: 'Field Presence Pulse', decision: 'Pilot zones, and sign-off on the “names only at TM level” rule.' },
+  { key: 'nov', month: 'Nov 2026', release: 'R2 · Field Presence Pulse', ships: '10:00 / 11:00 / 12:00 pulse to TMs; R1 to all zones with “mark reason” and “nudge SO”.', built: 'Intraday refresh, leave and holiday awareness, trend vs yesterday.', inBuild: 'KPI Digest (data mart for proposals, issuance, APE)', decision: 'KPI definitions and targets frozen with Sales MIS.' },
+  { key: 'dec', month: 'Dec 2026', release: 'R3 · Business KPI Digest', ships: 'The Activity Dashboard metric set at every level; daily card, weekly summary, top performers.', built: 'Governed KPI mart, hierarchy roll-ups, recognition logic.', inBuild: 'Ask Sudha v1 (fixed intents + drill-down buttons)', decision: 'Which MIS emails Sudha replaces.' },
+  { key: 'jan', month: 'Jan 2027', release: 'R4 · Ask Sudha', ships: 'Plain-language questions on any KPI for my span; drill-down from every card.', built: 'Text-to-query with guardrails, accuracy test set, audit log.', inBuild: 'Intelligent Alerts v1; Team Companion', decision: 'Alert catalogue and escalation rules.' },
+  { key: 'feb', month: 'Feb 2027', release: 'R5 · Intelligent Alerts + Review Companion', ships: 'Pending-requirement and activity-drop alerts; weekly review pack and live review mode for area / regional heads.', built: 'Baseline models per SO, recognition suggestions.', inBuild: 'Everyday Assistant (policy, HRMS, LMS, product repository)', decision: 'HR content owners and answer approval process.' },
+  { key: 'mar', month: 'Mar 2027', release: 'R6 · Everyday Employee Assistant', ships: 'HR and leave answers, learning nudges, product Q&A, unified morning brief — to every employee.', built: 'Adoption dashboard, BAU handover to BSG, guardrail review.', inBuild: 'Months 7–8 backlog', decision: 'Expansion to Agency / Broker / RRB and first department sub-agent.' },
 ]
 
 /** Option B — 8 months, one pod. Same order, one track in build at a time. */
@@ -263,7 +263,7 @@ export const PACING = {
     lines: [
       'Two tracks in build at any time; one release a month.',
       'Pod 1 (field signals): Tracks 1, 2, 5, 6. Pod 2 (knowledge & conversation): Tracks 3, 4, 7. Track 8 shared.',
-      'All eight tracks planned live by Feb 2027; every-employee reach (Track 7) in month 6.',
+      'All eight tracks planned live by Mar 2027 (Oct 2026 start); every-employee reach (Track 7) in month 6.',
       'Best when leadership wants visible momentum and the 15-day daily-notification proof of concept has landed.',
     ],
   },

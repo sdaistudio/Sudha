@@ -15,13 +15,13 @@ const CELL: Record<string, string> = {
 
 export function Roadmap() {
   const [pace, setPace] = useState<Pace>('a')
-  const [month, setMonth] = useState('sep')
+  const [month, setMonth] = useState('oct')
   const months = pace === 'a' ? ROADMAP_A.map((m) => ({ key: m.key, month: m.month, release: m.release })) : ROADMAP_B
   const selA = ROADMAP_A.find((m) => m.key === month)
   const selB = ROADMAP_B.find((m) => m.key === month)
   const changePace = (p: Pace) => {
     setPace(p)
-    if (p === 'a' && !ROADMAP_A.some((m) => m.key === month)) setMonth('feb')
+    if (p === 'a' && !ROADMAP_A.some((m) => m.key === month)) setMonth(month === 'sep' ? 'oct' : 'mar')
   }
 
   return (

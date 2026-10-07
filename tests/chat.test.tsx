@@ -74,7 +74,7 @@ describe('chat grounding context', () => {
   it('includes computed KPIs, the roadmap and the guardrails', () => {
     const p = systemPrompt('tm')
     expect(p).toContain('Achievement vs pace: 56.7%')
-    expect(p).toContain('Dec 2026 R4 Ask Sudha')
+    expect(p).toContain('Jan 2027 R4 Ask Sudha')
     expect(p).toMatch(/Never state real SUD Life policies/)
   })
 })
